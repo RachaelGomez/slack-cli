@@ -10,9 +10,7 @@ class Recipient
   def send_message(message)
     params = {token: ENV['SLACK_TOKEN'], channel: @slack_id, text: message}
     sleep(1)
-    puts params
-    # return self.class.error_message(HTTParty.post(POST_URL,params))
-    puts HTTParty.post(POST_URL,params)
+    return self.class.error_message(HTTParty.post(POST_URL, body: params))
   end
 
   def self.get(url, params)

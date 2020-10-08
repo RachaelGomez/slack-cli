@@ -48,11 +48,42 @@ describe "Recipient class" do
       @user_recipient = Recipient.new("U01C0JB1FB4", "christabot")
       @message = "Testing"
     end
+
     it "sends a message to a channel" do
       VCR.use_cassette("post message to channel") do
-        @response = @channel_recipient.send_message(@message)
+        response = @channel_recipient.send_message(@message)
+        expect(response["ok"]).must_equal true
       end
-      expect(@response).must_equal true
     end
+
+    it "sends a message to a user" do
+
+    end
+
+    it "expect error_message for bad `channel`" do
+      VCR.use_cassette("post message to channel -- bad recipient") do
+        bad_recipient = Recipient.new("failure", "still a failure")
+        expect {
+          bad_recipient.send_message(@message)
+        }.must_raise ArgumentError
+      end
+    end
+
+    it "expect error_message for bad `user`" do
+
+    end
+
+    it "expect error_message for nil `text` to a channel" do
+      VCR.use_cassette("post message to channel -- nil message") do
+        expect {
+          @channel_recipient.send_message(nil)
+        }.must_raise ArgumentError
+      end
+    end
+
+    it "expect error_message for nil `text` to a user" do
+
+    end
+
   end
 end
