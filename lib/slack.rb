@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require 'dotenv'
+require "table_print"
 require_relative 'workspace'
+
 
 def main
   Dotenv.load
@@ -16,29 +18,51 @@ def main
     case selection
     when 1
       workspace.load_users
-      ap workspace.users
+      tp workspace.users
     when 2
       workspace.load_channels
-      ap workspace.channels
+      tp workspace.channels
     when 3
       workspace.load_users
       puts "Please input a username or slack id"
       selected_user = workspace.select_user(gets.chomp)
-      puts "Would you like details?"
-      details_selection = input_validation(gets.chomp.downcase)
-      if details_selection == "yes"
-        puts workspace.show_details(selected_user)
+      if selected_user
+        puts "Would you like details?"
+        details_selection = input_validation(gets.chomp.downcase)
+        if details_selection == "yes"
+          puts workspace.show_details(selected_user)
+        end
+        puts "Would you like to send a message to #{selected_user.real_name}?"
+        message_selection = input_validation(gets.chomp.downcase)
+        if message_selection == "yes"
+          puts "Please write your message."
+          message = gets.chomp
+          selected_user.send_message(message)
+        end
+      else
+        puts "No user found."
       end
+
     when 4
       workspace.load_channels
       puts "Please input a channel name or slack id"
       selected_channel = workspace.select_channel(gets.chomp)
-      puts "Would you like details?"
-      details_selection = input_validation(gets.chomp.downcase)
-      if details_selection == "yes"
-        puts workspace.show_details(selected_channel)
+      if selected_channel
+        puts "Would you like details?"
+        details_selection = input_validation(gets.chomp.downcase)
+        if details_selection == "yes"
+          puts workspace.show_details(selected_channel)
+        end
+        puts "Would you like to make a post on #{selected_channel.name}?"
+        message_selection = input_validation(gets.chomp.downcase)
+        if message_selection == "yes"
+          puts "Please write your post."
+          message = gets.chomp
+          selected_channel.send_message(message)
+        end
+      else
+        puts "No channel found."
       end
-
     end
 
     puts "Make another selection:"
