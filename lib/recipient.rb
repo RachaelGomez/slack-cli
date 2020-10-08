@@ -1,4 +1,5 @@
 POST_URL = "https://slack.com/api/chat.postMessage"
+require 'httparty'
 class Recipient
   attr_reader :slack_id, :name
 
