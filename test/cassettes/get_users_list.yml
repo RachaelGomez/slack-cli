@@ -126,4 +126,59 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"ok":false,"error":"invalid_auth"}'
   recorded_at: Wed, 07 Oct 2020 23:44:56 GMT
+- request:
+    method: get
+    uri: https://slack.com/api/users.list?token=
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 08 Oct 2020 22:15:16 GMT
+      Server:
+      - Apache
+      X-Xss-Protection:
+      - '0'
+      Referrer-Policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Access-Control-Allow-Headers:
+      - slack-route, x-slack-version-ts, x-b3-traceid, x-b3-spanid, x-b3-parentspanid,
+        x-b3-sampled, x-b3-flags
+      Vary:
+      - Accept-Encoding
+      X-Accepted-Oauth-Scopes:
+      - users:read
+      X-Slack-Req-Id:
+      - d9cd6ecdf095c383a71e7ebc644f46cf
+      X-Slack-Backend:
+      - r
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - x-slack-req-id, retry-after
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '53'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Via:
+      - haproxy-www-g9kt,haproxy-edge-pdx-herk
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ok":false,"error":"not_authed"}'
+  recorded_at: Thu, 08 Oct 2020 22:15:16 GMT
 recorded_with: VCR 6.0.0
