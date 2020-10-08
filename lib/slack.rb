@@ -9,6 +9,10 @@ def main
 
   puts "Welcome to the Ada Slack CLI!"
   workspace = Workspace.new
+  workspace.load_users
+  workspace.load_channels
+  puts "Amount of users in workspace: #{workspace.users.length}"
+  puts "Amount of channels in workspace: #{workspace.channels.length}"
 
 
   puts "1. list users\n2. list channels\n3. select user\n4. select channel\n5. quit"
@@ -17,13 +21,10 @@ def main
   while (1..4).include? selection
     case selection
     when 1
-      workspace.load_users
-      tp workspace.users
+      tp workspace.users, "slack_id", "name", "real_name", "status_text", "status_emoji"
     when 2
-      workspace.load_channels
-      tp workspace.channels
+      tp workspace.channels, "slack_id", "name", "topic", "member_count"
     when 3
-      workspace.load_users
       puts "Please input a username or slack id"
       selected_user = workspace.select_user(gets.chomp)
       if selected_user
@@ -44,7 +45,6 @@ def main
       end
 
     when 4
-      workspace.load_channels
       puts "Please input a channel name or slack id"
       selected_channel = workspace.select_channel(gets.chomp)
       if selected_channel
