@@ -1,5 +1,7 @@
-POST_URL = "https://slack.com/api/chat.postMessage"
 require 'httparty'
+
+POST_URL = "https://slack.com/api/chat.postMessage"
+
 class Recipient
   attr_reader :slack_id, :name
 
@@ -27,8 +29,8 @@ class Recipient
   private
 
   def self.error_message(response)
-    if response.code != 200 || response["ok"] != true
-      raise ArgumentError, "API request failed with error code #{response.code} and #{response["error"]}."
+    if response["ok"] != true
+      raise ArgumentError, "API request failed with error: #{response["error"]}."
     else
       return response
     end
